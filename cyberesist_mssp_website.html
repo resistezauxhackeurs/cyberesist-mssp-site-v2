@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERESIST® - Plateforme d'Audits Cybersécurité pour MSSP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a5928, #2d7b3d);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #4CAF50;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a5928, #2d7b3d);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #4CAF50;
+            font-weight: 600;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #4CAF50;
+        }
+        
+        .btn-secondary:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: white;
+            padding: 60px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        /* Value Proposition */
+        .value-prop {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1a5928;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .value-text {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .value-card h3 {
+            font-size: 1.5rem;
+            color: #1a5928;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .value-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .service-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .service-card:hover {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+        
+        .service-number {
+            background: #4CAF50;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h4 {
+            font-size: 1.3rem;
+            color: #1a5928;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* Technical Features */
+        .tech-features {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a5928, #2d7b3d);
+            color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+        
+        .feature-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+        
+        /* Clients Section */
+        .clients {
+            padding: 80px 0;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            align-items: center;
+        }
+        
+        .client-item {
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .client-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a5928, #2d7b3d);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1a5928;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .services-grid,
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">CYBERESIST®</div>
+            <ul class="nav-links">
+                <li><a href="#services">Audits</a></li>
+                <li><a href="#avantages">Avantages MSSP</a></li>
+                <li><a href="#plateforme">Plateforme</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>MSSP : Relevez les défis de la cybersécurité</h1>
+                <p class="subtitle">Plateforme d'audits automatisés pour fournisseurs de services</p>
+                <p>Notre plateforme analyse les surfaces d'attaque de vos clients pour détecter les angles morts de sécurité et vous aider à protéger les systèmes exposés. Qu'il s'agisse de sécuriser les sites web ou les environnements Active Directory, CYBERESIST® vous permet d'être proactif.</p>
+                <div class="cta-buttons">
+                    <a href="#services" class="btn btn-primary">Découvrir nos audits</a>
+                    <a href="#contact" class="btn btn-secondary">Demander une démo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Sites audités</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100K+</div>
+                    <div class="stat-label">Menaces détectées</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">75K+</div>
+                    <div class="stat-label">Vulnérabilités patchées</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Monitoring & Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section id="avantages" class="value-prop">
+        <div class="container">
+            <h2 class="section-title">Pourquoi intégrer CYBERESIST® dans votre offre MSSP ?</h2>
+            <p class="value-text">Découvrez comment notre plateforme d'audit automatisé vous aide à protéger vos clients en réduisant les coûts d'audit et en automatisant vos tests de sécurité.</p>
+            
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">🚀</div>
+                    <h3>Automatisation complète</h3>
+                    <p>Plus de 70 outils intégrés pour automatiser vos audits. Déployez des tests exhaustifs en quelques clics, sans intervention manuelle.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">📊</div>
+                    <h3>Rapports professionnels</h3>
+                    <p>Génération automatique de rapports Word et Excel détaillés. Statistiques, graphiques et plans d'action personnalisés pour vos clients.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🔒</div>
+                    <h3>Infrastructure sécurisée</h3>
+                    <p>Plateforme hébergée en France chez OVH. Serveurs dédiés sécurisés avec mise à jour constante des bases de vulnérabilités.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3>Tests sans impact</h3>
+                    <p>Audits passifs et actifs sans installation d'agent, ni sonde, ni collecte de journaux. Minimisation des risques d'interruption.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Détection avancée</h3>
+                    <p>Plus de 100 types de vulnérabilités détectées. Cartographie complète de la surface d'attaque et des composants exposés.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🔄</div>
+                    <h3>Monitoring continu</h3>
+                    <p>Surveillance 24/7 des fuites de données, nouvelles vulnérabilités et tentatives d'attaque sur vos clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Nos Services d'Audit pour MSSP</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-number">01</div>
+                    <h4>Cartographie de Surface d'Attaque</h4>
+                    <p>Détection automatique de tous les systèmes exposés de vos clients sur Internet. Cartographie complète de la surface d'attaque avec identification des services non inventoriés et des angles morts de sécurité.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-number">02</div>
+                    <h4>Surveillance Dark Web</h4>
+                    <p>Monitoring continu des forums cybercriminels et du dark web. Recherches customisées pour détecter les adresses email piratées, fuites de code-source et données compromises de vos clients.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-number">03</div>
+                    <h4>Audit Web Approfondi</h4>
+                    <p>Scan exhaustif de la surface web exposée avec plus de 70 outils spécialisés. Tests sans installation d'agent, sans sonde et sans collecte des journaux d'événements pour minimiser l'impact.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-number">04</div>
+                    <h4>Détection de Vulnérabilités</h4>
+                    <p>Identification de plus de 100 types de vulnérabilités. Cartographie et scan de vulnérabilités pour chaque composant détecté avec génération automatique de rapports détaillés.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-number">05</div>
+                    <h4>Audit Active Directory</h4>
+                    <p>Évaluation complète du niveau de risque de l'Active Directory. Test des mots de passe des comptes utilisateurs et équipements, scan des vulnérabilités avec tests passifs, actifs et offensifs.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-number">06</div>
+                    <h4>Tests de Permissions et Chemins d'Attaque</h4>
+                    <p>Test des permissions (GPO, délégation, objets). Audit des chemins d'attaque avec simulation de compromission de l'administrateur de domaine à partir d'un compte utilisateur standard.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-number">07</div>
+                    <h4>Génération de Rapports Automatiques</h4>
+                    <p>Création automatique de rapports aux formats Word et Excel. Liste complète des vulnérabilités avec catégorisation des risques, statistiques graphiques et proposition de plans d'actions priorisés.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-number">08</div>
+                    <h4>Monitoring Continu</h4>
+                    <p>Surveillance continue des fuites de données et vulnérabilités sur les sous-domaines. Détection des tentatives d'attaques phishing contre vos utilisateurs et audit continu de l'Active Directory.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Features -->
+    <section id="plateforme" class="tech-features">
+        <div class="container">
+            <h2 class="section-title">Caractéristiques Techniques</h2>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <h4>Tests Automatisés</h4>
+                    <p>Déploiement automatique de plus de 70 outils de test sans intervention humaine</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <h4>100+ Vulnérabilités</h4>
+                    <p>Détection de plus de 100 types de vulnérabilités avec classification par niveau de risque</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Infrastructure Française</h4>
+                    <p>Serveurs dédiés sécurisés hébergés en France chez OVH avec certifications</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <h4>Support 24/7</h4>
+                    <p>Monitoring et support technique continu pour vos équipes et vos clients</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients">
+        <div class="container">
+            <h2 class="section-title">Ils nous font confiance</h2>
+            <p>MSSP, ESN et organisations qui utilisent notre plateforme</p>
+            
+            <div class="clients-grid">
+                <div class="client-item">TKH Group France</div>
+                <div class="client-item">EBS Group</div>
+                <div class="client-item">ITS-Integra</div>
+                <div class="client-item">E21 Data</div>
+                <div class="client-item">KYP Group</div>
+                <div class="client-item">Master Security</div>
+                <div class="client-item">Harmonie Technologie</div>
+                <div class="client-item">Digital Village</div>
+                <div class="client-item">HCL Technologies</div>
+                <div class="client-item">APHP</div>
+                <div class="client-item">CHU Rouen</div>
+                <div class="client-item">France TV Studio</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title">Intégrez CYBERESIST® dans votre offre MSSP</h2>
+                <p>Discutons de vos besoins et découvrez comment notre plateforme peut enrichir vos services de cybersécurité</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <p>contact@cyberesist.com</p>
+                        <p>Réponse sous 24h</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <h3>Téléphone</h3>
+                        <p>+33 (0)1 XX XX XX XX</p>
+                        <p>Lun-Ven : 9h-18h</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🚀</div>
+                        <h3>Démonstration</h3>
+                        <p>Demo personnalisée</p>
+                        <p>30 minutes avec nos experts</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 3rem;">
+                    <a href="mailto:contact@cyberesist.com?subject=Demande de partenariat MSSP" class="btn btn-primary">Demander une démonstration</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CYBERESIST® - Plateforme d'audits cybersécurité automatisés</p>
+            <p>Résistez aux hackeurs® - Infrastructure sécurisée hébergée en France 🇫🇷</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.service-card, .value-card, .feature-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
